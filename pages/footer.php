@@ -12,7 +12,10 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+    
+    <!-- Canvas.js -->
+    <script src="../js/jquery.canvasjs.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

@@ -21,6 +21,12 @@ $user = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
+if(!strcasecmp($page,'logout')){
+    session_destroy();
+    header("Location: index.php");
+    exit();
+}
+
 if(isset($user) && isset($password)) {
     $stmt = $conn->prepare('SELECT * FROM user WHERE NAME = :name');
     $stmt->bindValue(':name',$user,PDO::PARAM_STR);
