@@ -1,5 +1,7 @@
 <?php
 
+include_once 'php/config.class.php';
+
 session_start();
 
 if(isset($_SESSION['login_state'])) {
@@ -32,6 +34,49 @@ if(isset($user) && isset($password)) {
             $login = true;
         }
     }
+}
+
+if(isset($_POST['save_1'])) {
+    $c[] = array (
+        'name' => 'contorller_ip',
+        'value' => $_POST['contorller_ip']
+    );   
+    $c[] = array (
+        'name' => 'controller_password',
+        'value' => $_POST['controller_password']
+    ); 
+    $c[] = array (
+        'name' => 'check_interval',
+        'value' => $_POST['check_interval']
+    ); 
+    $c[] = array (
+        'name' => 'pow_running',
+        'value' => $_POST['pow_running']
+    ); 
+    $config = new config();
+    $config->save_config($c);
+}
+
+if(isset($_POST['save_2'])) {
+    $c[] = array (
+        'name' => 'awattar_api_url',
+        'value' => $_POST['awattar_api_url']
+    );   
+    $c[] = array (
+        'name' => 'awattar_api_token',
+        'value' => $_POST['awattar_api_token']
+    ); 
+    $config = new config();
+    $config->save_config($c);
+}
+
+if(isset($_POST['save_3'])) {
+    $c[] = array (
+        'name' => 'add_pow_price',
+        'value' => $_POST['add_pow_price']
+    );   
+    $config = new config();
+    $config->save_config($c);
 }
 
 if(!$login) {
