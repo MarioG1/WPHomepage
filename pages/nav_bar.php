@@ -78,7 +78,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="index.php?page=dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="index.php?page=dashboard"><i class="fa fa-dashboard fa-fw"></i>Übersicht</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Stromverbrauch<span class="fa arrow"></span></a>
