@@ -13,6 +13,9 @@ window.onload = function () {
         case 'history_day':
             render_charts_history_day();
             break;
+        case 'history_week':
+            render_charts_history_week();
+            break;
     }
 };
 
@@ -109,6 +112,109 @@ function render_charts_history_day() {
                 type: "column",
                 showInLegend: true,
                 legendText: "Gestern",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_usage', "Stromverbrauch [kWh]", true);
+    });
+}
+
+function render_charts_history_week() {
+    var days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+    var now = new Date();
+    var monday_tw_00 = new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay()+1, 0, 0, 0, 0);
+    var sunday_tw_24 = new Date(now.getFullYear(), now.getMonth(), now.getDate()+(7-now.getDay()), 23, 59, 0, 0) ;
+    var monday_lw_00 = new Date(monday_tw_00.getFullYear(), monday_tw_00.getMonth(), monday_tw_00.getDate()-7, 0, 0, 0, 0);
+    var sunday_lw_24 = new Date(sunday_tw_24.getFullYear(), sunday_tw_24.getMonth(), sunday_tw_24.getDate()-7, 23, 59, 0, 0);
+    
+    var req0 = $.getJSON('data.php', {action: "get_cost", start: Math.round(monday_tw_00 / 1000), stop: Math.round(sunday_tw_24 / 1000), interval: 'd'}, function (data) {});
+    var req1 = $.getJSON('data.php', {action: "get_cost", start: Math.round(monday_lw_00 / 1000), stop: Math.round(sunday_lw_24 / 1000), interval: 'd'}, function (data) {});
+    
+    $.when(req0, req1).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.cost,
+                    label: days[time.getDay()]
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.cost,
+                    label: days[time.getDay()]
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Diese Woche",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Letzte Woche",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_cost', "Stromkosten [€]", true);
+    });
+    
+    var req2 = $.getJSON('data.php', {action: "get_power_usage", start: Math.round(monday_tw_00 / 1000), stop: Math.round(sunday_tw_24 / 1000), interval: 'd'}, function (data) {});
+    var req3 = $.getJSON('data.php', {action: "get_power_usage", start: Math.round(monday_lw_00 / 1000), stop: Math.round(sunday_lw_24 / 1000), interval: 'd'}, function (data) {});
+    
+    $.when(req2, req3).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow / 1000,
+                    label: days[time.getDay()]
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow / 1000,
+                    label: days[time.getDay()]
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Diese Woche",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Letze Woche",
                 yValueFormatString:"0.###kWh",
                 dataPoints: data_points[1]
             } 
