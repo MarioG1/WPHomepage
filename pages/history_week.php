@@ -8,7 +8,12 @@ $wphist = new wpstats();
 $y = date('Y',time());
 $m = date('m',time());
 $d = date('d',time());
-$day_of_week = date('w',time())-1;
+
+if(date('w',time()) == 0){
+    $day_of_week = 6;
+} else {
+    $day_of_week = date('w',time())-1;
+}
 $h = date('H',time());
 $min = date('i',time());
 

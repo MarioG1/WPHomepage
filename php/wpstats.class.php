@@ -46,7 +46,7 @@ class wpstats {
                                       FROM power_history
                                       WHERE time > FROM_UNIXTIME(:start) AND time < FROM_UNIXTIME(:end)
                                       GROUP BY timestamp_inteval
-                                      ORDER BY timestamp_inteval DESC");
+                                      ORDER BY timestamp_inteval ASC");
         $stmt->bindValue(':start', $start, PDO::PARAM_INT);
         $stmt->bindValue(':end', $end, PDO::PARAM_INT);
         $stmt->execute();

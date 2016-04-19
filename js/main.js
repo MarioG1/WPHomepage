@@ -124,8 +124,15 @@ function render_charts_history_day() {
 function render_charts_history_week() {
     var days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
     var now = new Date();
-    var monday_tw_00 = new Date(now.getFullYear(), now.getMonth(), now.getDate()-now.getDay()+1, 0, 0, 0, 0);
-    var sunday_tw_24 = new Date(now.getFullYear(), now.getMonth(), now.getDate()+(7-now.getDay()), 23, 59, 0, 0) ;
+    
+    if(now.getDay() === 0) {
+        var day_of_week = 7;
+    } else {
+        var day_of_week = now.getDay() - 1;
+    }
+    
+    var monday_tw_00 = new Date(now.getFullYear(), now.getMonth(), now.getDate()-day_of_week, 0, 0, 0, 0);
+    var sunday_tw_24 = new Date(now.getFullYear(), now.getMonth(), now.getDate()+(6-day_of_week), 23, 59, 0, 0) ;
     var monday_lw_00 = new Date(monday_tw_00.getFullYear(), monday_tw_00.getMonth(), monday_tw_00.getDate()-7, 0, 0, 0, 0);
     var sunday_lw_24 = new Date(sunday_tw_24.getFullYear(), sunday_tw_24.getMonth(), sunday_tw_24.getDate()-7, 23, 59, 0, 0);
     
