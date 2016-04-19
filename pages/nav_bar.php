@@ -84,16 +84,16 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Stromverbrauch<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="index.php?page=history&time=day">Heute</a>
+                                    <a href="index.php?page=history_day">Heute</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?page=history&time=week">Diese Woche</a>
+                                    <a href="index.php?page=history_week">Diese Woche</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?page=history&time=month">Dieser Monat</a>
+                                    <a href="index.php?page=history_month">Dieser Monat</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?page=history&time=year">Dieses Jahr</a>
+                                    <a href="index.php?page=history_year">Dieses Jahr</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

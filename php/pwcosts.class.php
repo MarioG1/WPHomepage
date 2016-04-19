@@ -51,8 +51,33 @@ class pwcosts {
         return $this->get_real_price($stmt->fetch(PDO::FETCH_OBJ)->av);
     }
     
-    public function get_cost_all($start, $end){   
-        $stmt = $this->conn->prepare('SELECT unix_timestamp(time) as time, cost FROM power_cost WHERE time > FROM_UNIXTIME(:start) AND time < FROM_UNIXTIME(:end)');
+    public function get_cost_all($start, $end, $interval = 'm'){
+        switch ($interval) {
+            case 'm':
+                $stmt = $this->conn->prepare('SELECT unix_timestamp(time) as time, cost FROM power_cost WHERE time > FROM_UNIXTIME(:start) AND time < FROM_UNIXTIME(:end)');
+                break;
+            case 'h':
+                $stmt = $this->conn->prepare("SELECT str_to_date(concat(year(time),'.',month(time),'.',dayofmonth(time),' ',hour(time),':00',':00'),'%Y.%m.%d %H:%i:%s') AS timestamp_inteval, SUM(cost) AS cost, unix_timestamp(time) AS time
+                                      FROM power_cost
+                                      WHERE time > FROM_UNIXTIME(:start) AND time < FROM_UNIXTIME(:end)
+                                      GROUP BY timestamp_inteval
+                                      ORDER BY timestamp_inteval ASC");
+                break;
+            case 'd':
+                $stmt = $this->conn->prepare("SELECT str_to_date(concat(year(time),'.',month(time),'.',dayofmonth(time),' ','00',':00',':00'),'%Y.%m.%d %H:%i:%s') AS timestamp_inteval, SUM(cost) AS cost, unix_timestamp(time) AS time
+                                      FROM power_cost
+                                      WHERE time > FROM_UNIXTIME(:start) AND time < FROM_UNIXTIME(:end)
+                                      GROUP BY timestamp_inteval
+                                      ORDER BY timestamp_inteval ASC");
+                break;
+            case 'w':
+                $stmt = $this->conn->prepare("SELECT CONCAT(YEAR(time), '/', WEEK(time)) AS timestamp_inteval, SUM(cost), unix_timestamp(time)
+                                        FROM power_cost
+                                        WHERE time > FROM_UNIXTIME(:start) AND time < FROM_UNIXTIME(:end)
+                                        GROUP BY timestamp_inteval
+                                        ORDER BY YEAR(time) ASC, WEEK(time) ASC");
+                break;
+        }
         $stmt->bindValue(':start',$start,PDO::PARAM_INT);
         $stmt->bindValue(':end',$end,PDO::PARAM_INT);
         $stmt->execute();

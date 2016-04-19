@@ -94,6 +94,26 @@ if(!$login) {
             include 'pages\dashboard.php';
             include 'pages\footer.php';
             break;
+        case 'history_day':
+            include 'pages\nav_bar.php';
+            include 'pages\history_day.php';
+            include 'pages\footer.php';
+            break;
+        case 'history_week':
+            include 'pages\nav_bar.php';
+            include 'pages\history_week.php';
+            include 'pages\footer.php';
+            break;
+        case 'history_month':
+            include 'pages\nav_bar.php';
+            include 'pages\history_month.php';
+            include 'pages\footer.php';
+            break;
+        case 'history_year':
+            include 'pages\nav_bar.php';
+            include 'pages\history_year.php';
+            include 'pages\footer.php';
+            break;
         case 'settings':
             include 'pages\nav_bar.php';
             include 'pages\settings.php';

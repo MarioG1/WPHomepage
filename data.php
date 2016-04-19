@@ -26,16 +26,26 @@ switch ($action) {
     case 'get_power_cost':
         $start = filter_input(INPUT_GET, 'start', FILTER_SANITIZE_NUMBER_INT);
         $stop = filter_input(INPUT_GET, 'stop', FILTER_SANITIZE_NUMBER_INT);
+        $interval = filter_input(INPUT_GET, 'interval', FILTER_SANITIZE_STRING);
 
         $pwc = new pwcosts();
-        $data['data'] = $pwc->get_cost_all($start, $stop);
+        $data['data'] = $pwc->get_cost_all($start, $stop, $interval);
         break;
     case 'get_power_usage':
         $start = filter_input(INPUT_GET, 'start', FILTER_SANITIZE_NUMBER_INT);
         $stop = filter_input(INPUT_GET, 'stop', FILTER_SANITIZE_NUMBER_INT);
+        $interval = filter_input(INPUT_GET, 'interval', FILTER_SANITIZE_STRING);
 
         $wps = new wpstats();
-        $data['data'] = $wps->get_pow_all($start, $stop);
+        $data['data'] = $wps->get_pow_all($start, $stop, $interval);
+        break;
+    case 'get_cost':
+        $start = filter_input(INPUT_GET, 'start', FILTER_SANITIZE_NUMBER_INT);
+        $stop = filter_input(INPUT_GET, 'stop', FILTER_SANITIZE_NUMBER_INT);
+        $interval = filter_input(INPUT_GET, 'interval', FILTER_SANITIZE_STRING);
+
+        $wps = new wpstats();
+        $data['data'] = $wps->get_cost_all($start, $stop, $interval);
         break;
 }
 

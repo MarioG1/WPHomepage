@@ -2,46 +2,169 @@
  * Copyright (C) 2016 Gallaun Mario mario.gallaun@gmx.at
  */
 
+var chart_data_points = [];
+
 window.onload = function () {
     var page = getUrlParameter('page');
     switch (page) {
         case 'dashboard':
             render_charts_dashboard();
             break;
-        case 'history':
+        case 'history_day':
+            render_charts_history_day();
             break;
     }
 };
+
+function render_charts_history_day() {
+    var now = new Date();
+    var today_00 = Math.round(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0) / 1000);
+    var today_24 = Math.round(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 0, 0) / 1000);
+    var yesterday_00 = Math.round(new Date(now.getFullYear(), now.getMonth(), now.getDate()-1, 0, 0, 0, 0) / 1000);
+    var yesterday_24 = Math.round(new Date(now.getFullYear(), now.getMonth(), now.getDate()-1, 23, 59, 0, 0) / 1000);
+    
+    var req0 = $.getJSON('data.php', {action: "get_cost", start: today_00, stop: today_24, interval: 'h'}, function (data) {});
+    var req1 = $.getJSON('data.php', {action: "get_cost", start: yesterday_00, stop: yesterday_24, interval: 'h'}, function (data) {});
+    
+    $.when(req0, req1).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.cost,
+                    label: time.getHours()+':00'
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.cost,
+                    label: time.getHours()+':00'
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Heute",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Gestern",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_cost', "Stromkosten [€]", true);
+    });
+    
+    var req2 = $.getJSON('data.php', {action: "get_power_usage", start: today_00, stop: today_24, interval: 'h'}, function (data) {});
+    var req3 = $.getJSON('data.php', {action: "get_power_usage", start: yesterday_00, stop: yesterday_24, interval: 'h'}, function (data) {});
+    
+    $.when(req2, req3).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow / 1000,
+                    label: time.getHours()+':00'
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow / 1000,
+                    label: time.getHours()+':00'
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Heute",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Gestern",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_usage', "Stromverbrauch [kWh]", true);
+    });
+}
 
 function render_charts_dashboard() {
     var now = new Date();
     var start = Math.round(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0) / 1000);
     var stop = Math.round(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 0, 0) / 1000);
-    $.getJSON('data.php', {action: "get_power_cost", start: start, stop: stop}, function (data) {
-        var chart_data = [];
+    $.getJSON('data.php', {action: "get_power_cost", start: start, stop: stop, interval: 'm'}, function (data) {
+        var chart_data_points = [];
         for (var key in data.data) {
             var curr = data.data[key];
             var tmp = {
                 x: new Date(curr.time * 1000),
                 y: curr.cost * 100
             };
-            chart_data.push(tmp);
+            chart_data_points.push(tmp);
         }
+        
+        var chart_data = [
+            {
+                type: "stepLine",
+                markerType: "none",
+                dataPoints: chart_data_points
+            }
+        ];
+        
         render_setpLine_chart(chart_data, 'chart_pow_cost', "Stromkosten [c/kWh]", true);
     });
 
     var start = Math.round((new Date() / 1000) - 3600 * 24);
     var stop = Math.round(new Date() / 1000);
-    $.getJSON('data.php', {action: "get_power_usage", start: start, stop: stop}, function (data) {
-        var chart_data = [];
+    $.getJSON('data.php', {action: "get_power_usage", start: start, stop: stop, interval: 'm'}, function (data) {
+        var chart_data_points = [];
         for (var key in data.data) {
             var curr = data.data[key];
             var tmp = {
                 x: new Date(curr.time * 1000),
                 y: curr.pow / 1000
             };
-            chart_data.push(tmp);
+            chart_data_points.push(tmp);
         }
+        
+        var chart_data = [
+            {
+                type: "stepLine",
+                markerType: "none",
+                dataPoints: chart_data_points
+            }
+        ];
+        
         render_setpLine_chart(chart_data, 'chart_pow_usage', "Stromverbrauch [kWh]", false);
     });
 }
@@ -70,15 +193,25 @@ function render_setpLine_chart(data, id, title, show_curr_time) {
         axisY: {
             title: title
         },
-        data: [
-            {
-                type: "stepLine",
-                markerType: "none",
-                dataPoints: data
-            }
-        ]
+        data: data
     });
     chart.render();
+}
+
+function render_column_chart(data, id, title) {
+    var chart_1 = new CanvasJS.Chart(id, {
+        legend: {
+            horizontalAlign: "center", // "center" , "right"
+            verticalAlign: "bottom",  // "top" , "bottom"
+            fontSize: 15
+        },
+        axisY:{
+            title: title,
+            minimum: 0
+        },
+        data: data
+    });
+    chart_1.render();
 }
 
 function getUrlParameter(sParam) {
