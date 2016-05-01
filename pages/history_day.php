@@ -42,10 +42,10 @@ $yesterday_act->modify('-1 Day');
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_cost($today_00->getTimestamp(), $today_24->getTimestamp()),4)?></div>
+                            <div class="huge"><?php echo number_format($wphist->get_cost($today_00->getTimestamp(), $today_24->getTimestamp()),4,',','.')?></div>
                             <div><?php
-                                $cost_today = round($wphist->get_cost($today_00->getTimestamp(), $today_24->getTimestamp()),4);
-                                $cost_yesterday = round($wphist->get_cost($yesterday_00->getTimestamp(), $yesterday_act->getTimestamp()),4);
+                                $cost_today = $wphist->get_cost($today_00->getTimestamp(), $today_24->getTimestamp());
+                                $cost_yesterday = $wphist->get_cost($yesterday_00->getTimestamp(), $yesterday_act->getTimestamp());
                                 
                                 if(($cost_today - $cost_yesterday) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -53,7 +53,7 @@ $yesterday_act->modify('-1 Day');
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $cost_today - $cost_yesterday;
+                                echo number_format($cost_today - $cost_yesterday,4,',','.');
                                 ?></b></div>
                             <div>Kosten Heute </div>
                         </div>
@@ -69,10 +69,10 @@ $yesterday_act->modify('-1 Day');
                             <i class="fa fa-tasks fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_pow($today_00->getTimestamp(), $today_24->getTimestamp())/1000,3)?>kWh</div>
+                            <div class="huge"><?php echo number_format($wphist->get_pow($today_00->getTimestamp(), $today_24->getTimestamp())/1000,2,',','.')?>kWh</div>
                             <div><?php
-                                $pow_today = round($wphist->get_pow($today_00->getTimestamp(), $today_24->getTimestamp())/1000,3);
-                                $pow_yesterday = round($wphist->get_pow($yesterday_00->getTimestamp(), $yesterday_act->getTimestamp())/1000,3);
+                                $pow_today = $wphist->get_pow($today_00->getTimestamp(), $today_24->getTimestamp())/1000;
+                                $pow_yesterday = $wphist->get_pow($yesterday_00->getTimestamp(), $yesterday_act->getTimestamp())/1000;
                                 
                                 if(($pow_today - $pow_yesterday) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -80,7 +80,7 @@ $yesterday_act->modify('-1 Day');
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $pow_today - $pow_yesterday;
+                                echo number_format($pow_today - $pow_yesterday,2,',','.');
                                 echo "kWh";
                                 ?></b></div>
                             <div>Stromverbrauch Heute</div>
@@ -99,8 +99,8 @@ $yesterday_act->modify('-1 Day');
                         <div class="col-xs-9 text-right">
                             <div class="huge"><?php echo get_hm($wphist->get_runtime($today_00->getTimestamp(), $today_24->getTimestamp()),3)?></div>
                             <div><?php
-                                $run_today = round($wphist->get_runtime($today_00->getTimestamp(), $today_24->getTimestamp()),3);
-                                $run_yesterday = round($wphist->get_runtime($yesterday_00->getTimestamp(), $yesterday_act->getTimestamp()),3);
+                                $run_today = $wphist->get_runtime($today_00->getTimestamp(), $today_24->getTimestamp());
+                                $run_yesterday = $wphist->get_runtime($yesterday_00->getTimestamp(), $yesterday_act->getTimestamp());
                                 
                                 if(($run_today - $run_yesterday) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -125,10 +125,10 @@ $yesterday_act->modify('-1 Day');
                             <i class="glyphicon glyphicon-flash fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($pwcost->get_avg_cost($today_00->getTimestamp(), $today_24->getTimestamp()),4)?></div>
+                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost($today_00->getTimestamp(), $today_24->getTimestamp()),4,',','.')?></div>
                             <div><?php
-                                $price_today = round($pwcost->get_avg_cost($today_00->getTimestamp(), $today_24->getTimestamp()),4);
-                                $price_yesterday = round($pwcost->get_avg_cost($yesterday_00->getTimestamp(), $yesterday_24->getTimestamp()),4);
+                                $price_today = $pwcost->get_avg_cost($today_00->getTimestamp(), $today_24->getTimestamp());
+                                $price_yesterday = $pwcost->get_avg_cost($yesterday_00->getTimestamp(), $yesterday_24->getTimestamp());
                                 
                                 if(($price_today - $price_yesterday) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -136,7 +136,7 @@ $yesterday_act->modify('-1 Day');
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $price_today - $price_yesterday;
+                                echo number_format($price_today - $price_yesterday,4,',','.');
                                 ?></b></div>
                             <div>&#216; Strompreis Heute</div>
                         </div>

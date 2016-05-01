@@ -54,10 +54,10 @@ if($today_lm->format('m') != date('m',time())-1) {
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4)?></div>
+                            <div class="huge"><?php echo  number_format($wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4,',','.')?></div>
                             <div><?php
-                                $cost_tw = round($wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4);
-                                $cost_lw = round($wphist->get_cost($lm_first->getTimestamp(), $today_lm->getTimestamp()),4);
+                                $cost_tw = $wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp());
+                                $cost_lw = $wphist->get_cost($lm_first->getTimestamp(), $today_lm->getTimestamp());
                                 
                                 if(($cost_tw - $cost_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -65,7 +65,7 @@ if($today_lm->format('m') != date('m',time())-1) {
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $cost_tw - $cost_lw;
+                                echo  number_format($cost_tw - $cost_lw,4,',','.');
                                 ?></b></div>
                             <div>Kosten dieser Monat</div>
                         </div>
@@ -81,10 +81,10 @@ if($today_lm->format('m') != date('m',time())-1) {
                             <i class="fa fa-tasks fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp())/1000,3)?>kWh</div>
+                            <div class="huge"><?php echo  number_format($wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp())/1000,2,',','.')?>kWh</div>
                             <div><?php
-                                $pow_tw = round($wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp())/1000,3);
-                                $pow_lw = round($wphist->get_pow($lm_first->getTimestamp(), $today_lm->getTimestamp())/1000,3);  
+                                $pow_tw = $wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp())/1000;
+                                $pow_lw = $wphist->get_pow($lm_first->getTimestamp(), $today_lm->getTimestamp())/1000;  
                                 
                                 if(($pow_tw - $pow_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -92,7 +92,7 @@ if($today_lm->format('m') != date('m',time())-1) {
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $pow_tw - $pow_lw;
+                                echo number_format($pow_tw - $pow_lw,2,',','.');
                                 echo "kWh";
                                 ?></b></div>
                             <div>Stromverbrauch dieser Monat</div>
@@ -111,8 +111,8 @@ if($today_lm->format('m') != date('m',time())-1) {
                         <div class="col-xs-9 text-right">
                             <div class="huge"><?php echo get_hm($wphist->get_runtime($tm_first->getTimestamp(), $tm_last->getTimestamp()),3)?></div>
                             <div><?php
-                                $run_tw = round($wphist->get_runtime($tm_first->getTimestamp(), $tm_last->getTimestamp()),3);
-                                $run_lw = round($wphist->get_runtime($lm_first->getTimestamp(), $today_lm->getTimestamp()),3);
+                                $run_tw = $wphist->get_runtime($tm_first->getTimestamp(), $tm_last->getTimestamp());
+                                $run_lw = $wphist->get_runtime($lm_first->getTimestamp(), $today_lm->getTimestamp());
                                 
                                 if(($run_tw - $run_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -137,10 +137,10 @@ if($today_lm->format('m') != date('m',time())-1) {
                             <i class="glyphicon glyphicon-flash fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4)?></div>
+                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4,',','.')?></div>
                             <div><?php
-                                $price_tw = round($pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4);
-                                $price_lw= round($pwcost->get_avg_cost($lm_first->getTimestamp(), $today_lm->getTimestamp()),4);
+                                $price_tw = $pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp());
+                                $price_lw = $pwcost->get_avg_cost($lm_first->getTimestamp(), $today_lm->getTimestamp());
                                 
                                 if(($price_tw - $price_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -148,7 +148,7 @@ if($today_lm->format('m') != date('m',time())-1) {
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $price_tw - $price_lw;
+                                echo number_format($price_tw - $price_lw,4,',','.');
                                 ?></b></div>
                             <div>&#216; Strompreis dieser Monat</div>
                         </div>

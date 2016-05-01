@@ -23,7 +23,7 @@ $wphist = new wpstats();
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_cost(time()-(3600*24), time()),4)?></div>
+                            <div class="huge"><?php echo number_format($wphist->get_cost(time()-(3600*24), time()),4,',','.')?></div>
                             <div>Kosten 24h </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@ $wphist = new wpstats();
                             <i class="fa fa-tasks fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_pow(time()-(3600*24), time())/1000,3)?>kWh</div>
+                            <div class="huge"><?php echo number_format($wphist->get_pow(time()-(3600*24), time())/1000,2,',','.')?>kWh</div>
                             <div>Verbrauch 24h</div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ $wphist = new wpstats();
                             <i class="glyphicon glyphicon-flash fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($pwcost->get_avg_cost(time()-(3600*24), time()),4)?></div>
+                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost(time()-(3600*24), time()),4,',','.')?></div>
                             <div>&#216; Strompreis 24h</div>
                         </div>
                     </div>

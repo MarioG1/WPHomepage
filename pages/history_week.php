@@ -50,10 +50,10 @@ $today_lw->modify('-7 Day');
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4)?></div>
+                            <div class="huge"><?php echo number_format($wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4,',','.')?></div>
                             <div><?php
-                                $cost_tw = round($wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4);
-                                $cost_lw = round($wphist->get_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp()),4);
+                                $cost_tw = $wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp());
+                                $cost_lw = $wphist->get_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp());
                                 
                                 if(($cost_tw - $cost_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -61,7 +61,7 @@ $today_lw->modify('-7 Day');
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $cost_tw - $cost_lw;
+                                echo number_format($cost_tw - $cost_lw,4,',','.');
                                 ?></b></div>
                             <div>Kosten diese Woche</div>
                         </div>
@@ -77,10 +77,10 @@ $today_lw->modify('-7 Day');
                             <i class="fa fa-tasks fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/1000,3)?>kWh</div>
+                            <div class="huge"><?php echo number_format($wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/1000,2,',','.')?>kWh</div>
                             <div><?php
-                                $pow_tw = round($wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/1000,3);
-                                $pow_lw = round($wphist->get_pow($monday_lw_00->getTimestamp(), $today_lw->getTimestamp())/1000,3);  
+                                $pow_tw = $wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/1000;
+                                $pow_lw = $wphist->get_pow($monday_lw_00->getTimestamp(), $today_lw->getTimestamp())/1000;  
                                 
                                 if(($pow_tw - $pow_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -88,7 +88,7 @@ $today_lw->modify('-7 Day');
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $pow_tw - $pow_lw;
+                                echo number_format($pow_tw - $pow_lw,2,',','.');
                                 echo "kWh";
                                 ?></b></div>
                             <div>Stromverbrauch diese Woche</div>
@@ -107,8 +107,8 @@ $today_lw->modify('-7 Day');
                         <div class="col-xs-9 text-right">
                             <div class="huge"><?php echo get_hm($wphist->get_runtime($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),3)?></div>
                             <div><?php
-                                $run_tw = round($wphist->get_runtime($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),3);
-                                $run_lw = round($wphist->get_runtime($monday_lw_00->getTimestamp(), $today_lw->getTimestamp()),3);
+                                $run_tw = $wphist->get_runtime($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp());
+                                $run_lw = $wphist->get_runtime($monday_lw_00->getTimestamp(), $today_lw->getTimestamp());
                                 
                                 if(($run_tw - $run_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -133,10 +133,10 @@ $today_lw->modify('-7 Day');
                             <i class="glyphicon glyphicon-flash fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo round($pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4)?></div>
+                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4,',','.')?></div>
                             <div><?php
-                                $price_tw = round($pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4);
-                                $price_lw= round($pwcost->get_avg_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp()),4);
+                                $price_tw = $pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp());
+                                $price_lw= $pwcost->get_avg_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp());
                                 
                                 if(($price_tw - $price_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -144,7 +144,7 @@ $today_lw->modify('-7 Day');
                                 } else {
                                     echo '<b style="color: #00FF00;">';
                                 }
-                                echo $price_tw - $price_lw;
+                                echo number_format($price_tw - $price_lw,4,',','.');
                                 ?></b></div>
                             <div>&#216; Strompreis diese Woche</div>
                         </div>
