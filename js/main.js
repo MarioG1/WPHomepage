@@ -16,6 +16,9 @@ window.onload = function () {
         case 'history_week':
             render_charts_history_week();
             break;
+        case 'history_month':
+            render_charts_history_month();
+            break;
     }
 };
 
@@ -126,7 +129,7 @@ function render_charts_history_week() {
     var now = new Date();
     
     if(now.getDay() === 0) {
-        var day_of_week = 7;
+        var day_of_week = 6;
     } else {
         var day_of_week = now.getDay() - 1;
     }
@@ -206,6 +209,108 @@ function render_charts_history_week() {
                     x: parseInt(key),
                     y: curr.pow / 1000,
                     label: days[time.getDay()]
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Diese Woche",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Letze Woche",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_usage', "Stromverbrauch [kWh]", true);
+    });
+}
+
+function render_charts_history_month() {
+    var date = new Date();
+    var tm_first = new Date(date.getFullYear(), date.getMonth(), 1);
+    var tm_last = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 0, 0) ;
+    var lm_first = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+    var lm_last = new Date(date.getFullYear(), date.getMonth(), 0, 23, 59, 0, 0);
+    
+    var req0 = $.getJSON('data.php', {action: "get_cost", start: Math.round(tm_first / 1000), stop: Math.round(tm_last / 1000), interval: 'd'}, function (data) {});
+    var req1 = $.getJSON('data.php', {action: "get_cost", start: Math.round(lm_first / 1000), stop: Math.round(lm_last / 1000), interval: 'd'}, function (data) {});
+    
+    $.when(req0, req1).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.cost,
+                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.cost,
+                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Diese Woche",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Letzte Woche",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_cost', "Stromkosten [€]", true);
+    });
+    
+    var req2 = $.getJSON('data.php', {action: "get_power_usage", start: Math.round(tm_first / 1000), stop: Math.round(tm_last / 1000), interval: 'd'}, function (data) {});
+    var req3 = $.getJSON('data.php', {action: "get_power_usage", start: Math.round(lm_first / 1000), stop: Math.round(lm_last / 1000), interval: 'd'}, function (data) {});
+    
+    $.when(req2, req3).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow / 1000,
+                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow / 1000,
+                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
             };
             data_points[1].push(tmp);
         }
