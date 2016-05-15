@@ -153,7 +153,7 @@ class wpstats {
     }
     
     public function get_runtime($start, $end) {
-        $stmt = $this->conn->prepare('SELECT COUNT(*) AS num FROM power_history WHERE power >= :power AND time <= FROM_UNIXTIME(:start) AND time < FROM_UNIXTIME(:end)');
+        $stmt = $this->conn->prepare('SELECT COUNT(*) AS num FROM power_history WHERE power >= :power AND time >= FROM_UNIXTIME(:start) AND time <= FROM_UNIXTIME(:end)');
         $power = $this->config->pow_running;
         $stmt->bindValue(':power', $power, PDO::PARAM_INT);
         $stmt->bindValue(':start', $start, PDO::PARAM_INT);
