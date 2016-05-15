@@ -80,7 +80,11 @@ if(isset($_POST['save_3'])) {
     $c[] = array (
         'name' => 'add_pow_price',
         'value' => $_POST['add_pow_price']
-    );   
+    );
+    $c[] = array (
+        'name' => 'add_pow_price_d',
+        'value' => $_POST['add_pow_price_d']
+    );  
     $config = new config();
     $config->save_config($c);
 }

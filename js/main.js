@@ -39,7 +39,7 @@ function render_charts_history_day() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.cost,
+                    y: (curr.cost+curr.fee)/100,
                     label: time.getHours()+':00'
             };
             data_points[0].push(tmp);
@@ -50,7 +50,7 @@ function render_charts_history_day() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.cost,
+                    y: (curr.cost+curr.fee)/100,
                     label: time.getHours()+':00'
             };
             data_points[1].push(tmp);
@@ -70,7 +70,7 @@ function render_charts_history_day() {
                 legendText: "Gestern",
                 yValueFormatString:"0.####€",
                 dataPoints: data_points[1]
-            } 
+            }
         ];
         
         render_column_chart(chart_data, 'chart_pow_cost', "Stromkosten [€]", true);
@@ -149,7 +149,7 @@ function render_charts_history_week() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.cost,
+                    y: (curr.cost+curr.fee)/100,
                     label: days[time.getDay()]
             };
             data_points[0].push(tmp);
@@ -160,7 +160,7 @@ function render_charts_history_week() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.cost,
+                    y: (curr.cost+curr.fee)/100,
                     label: days[time.getDay()]
             };
             data_points[1].push(tmp);
@@ -251,7 +251,7 @@ function render_charts_history_month() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.cost,
+                    y: (curr.cost+curr.fee)/100,
                     label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
             };
             data_points[0].push(tmp);
@@ -262,7 +262,7 @@ function render_charts_history_month() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.cost,
+                    y: (curr.cost+curr.fee)/100,
                     label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
             };
             data_points[1].push(tmp);
@@ -298,7 +298,7 @@ function render_charts_history_month() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.pow / 1000,
+                    y: curr.pow,
                     label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
             };
             data_points[0].push(tmp);
@@ -309,7 +309,7 @@ function render_charts_history_month() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.pow / 1000,
+                    y: curr.pow,
                     label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
             };
             data_points[1].push(tmp);
@@ -346,7 +346,7 @@ function render_charts_dashboard() {
             var curr = data.data[key];
             var tmp = {
                 x: new Date(curr.time * 1000),
-                y: curr.cost * 100
+                y: curr.cost
             };
             chart_data_points.push(tmp);
         }
@@ -370,7 +370,7 @@ function render_charts_dashboard() {
             var curr = data.data[key];
             var tmp = {
                 x: new Date(curr.time * 1000),
-                y: curr.pow / 1000
+                y: curr.pow
             };
             chart_data_points.push(tmp);
         }

@@ -50,10 +50,10 @@ $today_lw->modify('-7 Day');
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo number_format($wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4,',','.')?></div>
+                            <div class="huge"><?php echo number_format($wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/100,4,',','.')?></div>
                             <div><?php
-                                $cost_tw = $wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp());
-                                $cost_lw = $wphist->get_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp());
+                                $cost_tw = $wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/100;
+                                $cost_lw = $wphist->get_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp())/100;
                                 
                                 if(($cost_tw - $cost_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -77,10 +77,10 @@ $today_lw->modify('-7 Day');
                             <i class="fa fa-tasks fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo number_format($wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/1000,2,',','.')?>kWh</div>
+                            <div class="huge"><?php echo number_format($wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),2,',','.')?>kWh</div>
                             <div><?php
-                                $pow_tw = $wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/1000;
-                                $pow_lw = $wphist->get_pow($monday_lw_00->getTimestamp(), $today_lw->getTimestamp())/1000;  
+                                $pow_tw = $wphist->get_pow($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp());
+                                $pow_lw = $wphist->get_pow($monday_lw_00->getTimestamp(), $today_lw->getTimestamp());  
                                 
                                 if(($pow_tw - $pow_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -133,10 +133,10 @@ $today_lw->modify('-7 Day');
                             <i class="glyphicon glyphicon-flash fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp()),4,',','.')?></div>
+                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/100,4,',','.')?></div>
                             <div><?php
-                                $price_tw = $pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp());
-                                $price_lw= $pwcost->get_avg_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp());
+                                $price_tw = $pwcost->get_avg_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/100;
+                                $price_lw= $pwcost->get_avg_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp())/100;
                                 
                                 if(($price_tw - $price_lw) > 0){
                                     echo '<b style="color: #FF0000;">';

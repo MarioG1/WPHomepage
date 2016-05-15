@@ -96,6 +96,12 @@ $config->load_config();
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-4 control-label">Zusätzliche Kosten [c/Tag]</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="add_pow_price_d" value="<?php echo $config->v->add_pow_price_d ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-offset-10 col-sm-2">
                                 <button type="submit" class="btn btn-info" name="save_3">Speichern</button>
                             </div>

@@ -54,10 +54,10 @@ if($today_lm->format('m') != date('m',time())-1) {
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo  number_format($wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4,',','.')?></div>
+                            <div class="huge"><?php echo  number_format($wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp())/100,4,',','.')?></div>
                             <div><?php
-                                $cost_tw = $wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp());
-                                $cost_lw = $wphist->get_cost($lm_first->getTimestamp(), $today_lm->getTimestamp());
+                                $cost_tw = $wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp())/100;
+                                $cost_lw = $wphist->get_cost($lm_first->getTimestamp(), $today_lm->getTimestamp())/100;
                                 
                                 if(($cost_tw - $cost_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -81,10 +81,10 @@ if($today_lm->format('m') != date('m',time())-1) {
                             <i class="fa fa-tasks fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo  number_format($wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp())/1000,2,',','.')?>kWh</div>
+                            <div class="huge"><?php echo  number_format($wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp()),2,',','.')?>kWh</div>
                             <div><?php
-                                $pow_tw = $wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp())/1000;
-                                $pow_lw = $wphist->get_pow($lm_first->getTimestamp(), $today_lm->getTimestamp())/1000;  
+                                $pow_tw = $wphist->get_pow($tm_first->getTimestamp(), $tm_last->getTimestamp());
+                                $pow_lw = $wphist->get_pow($lm_first->getTimestamp(), $today_lm->getTimestamp());  
                                 
                                 if(($pow_tw - $pow_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
@@ -137,10 +137,10 @@ if($today_lm->format('m') != date('m',time())-1) {
                             <i class="glyphicon glyphicon-flash fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp()),4,',','.')?></div>
+                            <div class="huge"><?php echo number_format($pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp())/100,4,',','.')?></div>
                             <div><?php
-                                $price_tw = $pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp());
-                                $price_lw = $pwcost->get_avg_cost($lm_first->getTimestamp(), $today_lm->getTimestamp());
+                                $price_tw = $pwcost->get_avg_cost($tm_first->getTimestamp(), $tm_last->getTimestamp())/100;
+                                $price_lw = $pwcost->get_avg_cost($lm_first->getTimestamp(), $today_lm->getTimestamp())/100;
                                 
                                 if(($price_tw - $price_lw) > 0){
                                     echo '<b style="color: #FF0000;">';
