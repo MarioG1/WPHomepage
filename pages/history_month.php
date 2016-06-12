@@ -12,6 +12,8 @@ $d = date('d',time());
 $h = date('H',time());
 $min = date('i',time());
 
+$act = new DateTime();
+
 $tm_first = new DateTime("1-$m-$y 00:00");
 #echo "  tm_first: " . $tm_first->format('Y-m-d H:i:s');
 
@@ -54,9 +56,9 @@ if($today_lm->format('m') != date('m',time())-1) {
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo  number_format($wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp())/100,4,',','.')?></div>
+                            <div class="huge"><?php echo  number_format($wphist->get_cost($tm_first->getTimestamp(), $act->getTimestamp())/100,4,',','.')?></div>
                             <div><?php
-                                $cost_tw = $wphist->get_cost($tm_first->getTimestamp(), $tm_last->getTimestamp())/100;
+                                $cost_tw = $wphist->get_cost($tm_first->getTimestamp(), $act->getTimestamp())/100;
                                 $cost_lw = $wphist->get_cost($lm_first->getTimestamp(), $today_lm->getTimestamp())/100;
                                 
                                 if(($cost_tw - $cost_lw) > 0){

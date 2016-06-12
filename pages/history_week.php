@@ -17,6 +17,8 @@ if(date('w',time()) == 0){
 $h = date('H',time());
 $min = date('i',time());
 
+$act = new DateTime();
+
 $monday_tw_00 = new DateTime("$d-$m-$y 00:00");
 $monday_tw_00->modify("-".($day_of_week)." Day");
 
@@ -50,9 +52,9 @@ $today_lw->modify('-7 Day');
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo number_format($wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/100,4,',','.')?></div>
+                            <div class="huge"><?php echo number_format($wphist->get_cost($monday_tw_00->getTimestamp(), $act->getTimestamp())/100,4,',','.')?></div>
                             <div><?php
-                                $cost_tw = $wphist->get_cost($monday_tw_00->getTimestamp(), $sunday_tw_24->getTimestamp())/100;
+                                $cost_tw = $wphist->get_cost($monday_tw_00->getTimestamp(), $act->getTimestamp())/100;
                                 $cost_lw = $wphist->get_cost($monday_lw_00->getTimestamp(), $today_lw->getTimestamp())/100;
                                 
                                 if(($cost_tw - $cost_lw) > 0){

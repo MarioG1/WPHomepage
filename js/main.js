@@ -86,7 +86,7 @@ function render_charts_history_day() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.pow / 1000,
+                    y: curr.pow,
                     label: time.getHours()+':00'
             };
             data_points[0].push(tmp);
@@ -97,7 +97,7 @@ function render_charts_history_day() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.pow / 1000,
+                    y: curr.pow,
                     label: time.getHours()+':00'
             };
             data_points[1].push(tmp);
@@ -196,7 +196,7 @@ function render_charts_history_week() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.pow / 1000,
+                    y: curr.pow,
                     label: days[time.getDay()]
             };
             data_points[0].push(tmp);
@@ -207,7 +207,7 @@ function render_charts_history_week() {
             var time = new Date(curr.time*1000);
             var tmp = {
                     x: parseInt(key),
-                    y: curr.pow / 1000,
+                    y: curr.pow,
                     label: days[time.getDay()]
             };
             data_points[1].push(tmp);
@@ -246,40 +246,63 @@ function render_charts_history_month() {
     
     $.when(req0, req1).done(function(d0, d1){
         var data_points = [[],[]];
+        var week = 0;
+        var cost = 0;
+        
+        var time_lw = new Date(d0[0].data[0].time*1000);
+        
         for (var key in d0[0].data) {
             var curr = d0[0].data[key];
-            var time = new Date(curr.time*1000);
-            var tmp = {
-                    x: parseInt(key),
-                    y: (curr.cost+curr.fee)/100,
-                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
-            };
-            data_points[0].push(tmp);
+            var tmp_key = parseInt(key) + 1;
+            cost = cost + curr.fee + curr.cost;
+            
+            if((tmp_key % 7 === 0 && tmp_key !== '0') || (tmp_key === d0[0].data.length)){
+                var time = new Date(curr.time*1000);            
+                week += 1;
+                var tmp = {
+                        x: parseInt(week),
+                        y: (cost)/100,
+                        label: week + '. Woche (' + (time_lw.getDate()) +'.'+(time_lw.getMonth()+1)+' - '+ (time.getDate()) +'.'+(time.getMonth()+1)+')'
+                };
+                cost = 0;
+                data_points[0].push(tmp);
+                time_lw = new Date(curr.time*1000); 
+            }
         }
         
+        week = 0;
+        cost = 0;
+        time_lw = new Date(d1[0].data[0].time*1000);
         for (var key in d1[0].data) {
             var curr = d1[0].data[key];
-            var time = new Date(curr.time*1000);
-            var tmp = {
-                    x: parseInt(key),
-                    y: (curr.cost+curr.fee)/100,
-                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
-            };
-            data_points[1].push(tmp);
+            var tmp_key = parseInt(key) + 1;
+            cost = cost + curr.fee + curr.cost;
+            if((tmp_key % 7 === 0 && tmp_key !== '0') || (tmp_key === d1[0].data.length)){
+                var time = new Date(curr.time*1000);            
+                week += 1;
+                var tmp = {
+                        x: parseInt(week),
+                        y: (cost)/100,
+                        label: week + '. Woche (' + (time_lw.getDate()) +'.'+(time_lw.getMonth()+1)+' - '+ (time.getDate()) +'.'+(time.getMonth()+1)+')'
+                };
+                cost = 0;
+                data_points[1].push(tmp);
+                time_lw = new Date(curr.time*1000);  
+            }
         }
         
         var chart_data = [
             {
                 type: "column",
                 showInLegend: true,
-                legendText: "Diese Woche",
+                legendText: "Dieser Monat",
                 yValueFormatString:"0.####€",
                 dataPoints: data_points[0]
             },
             {
                 type: "column",
                 showInLegend: true,
-                legendText: "Letzte Woche",
+                legendText: "Letzter Monat",
                 yValueFormatString:"0.####€",
                 dataPoints: data_points[1]
             } 
@@ -293,40 +316,63 @@ function render_charts_history_month() {
     
     $.when(req2, req3).done(function(d0, d1){
         var data_points = [[],[]];
+        var week = 0;
+        var cost = 0;
+        
+        var time_lw = new Date(d0[0].data[0].time*1000);
+        
         for (var key in d0[0].data) {
             var curr = d0[0].data[key];
-            var time = new Date(curr.time*1000);
-            var tmp = {
-                    x: parseInt(key),
-                    y: curr.pow,
-                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
-            };
-            data_points[0].push(tmp);
+            var tmp_key = parseInt(key) + 1;
+            cost = cost + curr.pow;
+            
+            if((tmp_key % 7 === 0 && tmp_key !== '0') || (tmp_key === d0[0].data.length)){
+                var time = new Date(curr.time*1000);            
+                week += 1;
+                var tmp = {
+                        x: parseInt(week),
+                        y: cost,
+                        label: week + '. Woche (' + (time_lw.getDate()) +'.'+(time_lw.getMonth()+1)+' - '+ (time.getDate()) +'.'+(time.getMonth()+1)+')'
+                };
+                cost = 0;
+                data_points[0].push(tmp);
+                time_lw = new Date(curr.time*1000); 
+            }
         }
         
+        week = 0;
+        cost = 0;
+        time_lw = new Date(d1[0].data[0].time*1000);
         for (var key in d1[0].data) {
             var curr = d1[0].data[key];
-            var time = new Date(curr.time*1000);
-            var tmp = {
-                    x: parseInt(key),
-                    y: curr.pow,
-                    label: time.getDate()+'.'+(time.getMonth()+1)+'.'+time.getFullYear()
-            };
-            data_points[1].push(tmp);
+            var tmp_key = parseInt(key) + 1;
+            cost = cost + curr.pow;
+            if((tmp_key % 7 === 0 && tmp_key !== '0') || (tmp_key === d1[0].data.length)){
+                var time = new Date(curr.time*1000);            
+                week += 1;
+                var tmp = {
+                        x: parseInt(week),
+                        y: cost,
+                        label: week + '. Woche (' + (time_lw.getDate()) +'.'+(time_lw.getMonth()+1)+' - '+ (time.getDate()) +'.'+(time.getMonth()+1)+')'
+                };
+                cost = 0;
+                data_points[1].push(tmp);
+                time_lw = new Date(curr.time*1000);  
+            }
         }
         
         var chart_data = [
             {
                 type: "column",
                 showInLegend: true,
-                legendText: "Diese Woche",
+                legendText: "Dieser Monat",
                 yValueFormatString:"0.###kWh",
                 dataPoints: data_points[0]
             },
             {
                 type: "column",
                 showInLegend: true,
-                legendText: "Letze Woche",
+                legendText: "Letzer Monat",
                 yValueFormatString:"0.###kWh",
                 dataPoints: data_points[1]
             } 

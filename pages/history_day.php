@@ -11,6 +11,8 @@ $d = date('d',time());
 $h = date('H',time());
 $min = date('i',time());
 
+$act = new DateTime();
+
 $today_00 = new DateTime("$d-$m-$y 00:00");
 $today_24 = new DateTime("$d-$m-$y 23:59");
 
@@ -42,9 +44,9 @@ $yesterday_act->modify('-1 Day');
                             <span class="glyphicon glyphicon-euro fa-5x" aria-hidden="true"></span>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge"><?php echo number_format($wphist->get_cost($today_00->getTimestamp(), $today_24->getTimestamp())/100,4,',','.')?></div>
+                            <div class="huge"><?php echo number_format($wphist->get_cost($today_00->getTimestamp(), $act->getTimestamp())/100,4,',','.')?></div>
                             <div><?php
-                                $cost_today = $wphist->get_cost($today_00->getTimestamp(), $today_24->getTimestamp())/100;
+                                $cost_today = $wphist->get_cost($today_00->getTimestamp(), $act->getTimestamp())/100;
                                 $cost_yesterday = $wphist->get_cost($yesterday_00->getTimestamp(), $yesterday_act->getTimestamp())/100;
                                 
                                 if(($cost_today - $cost_yesterday) > 0){
