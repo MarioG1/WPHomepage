@@ -81,6 +81,14 @@ class pwcosts {
                                         ORDER BY YEAR(time) ASC, WEEK(time) ASC");
                 $duration = 7;
                 break;
+            case 'mo':
+                $stmt = $this->conn->prepare("SELECT CONCAT(YEAR(time), '/', MONTH(time)) AS timestamp_inteval, SUM(cost/10) as cost, unix_timestamp(time)
+                                        FROM power_cost
+                                        WHERE time >= FROM_UNIXTIME(:start) AND time <= FROM_UNIXTIME(:end)
+                                        GROUP BY timestamp_inteval
+                                        ORDER BY YEAR(time) ASC, MONTH(time) ASC");
+                $duration = 30;
+                break;
         }
         $stmt->bindValue(':start',$start,PDO::PARAM_INT);
         $stmt->bindValue(':end',$end,PDO::PARAM_INT);

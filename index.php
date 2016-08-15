@@ -90,43 +90,43 @@ if(isset($_POST['save_3'])) {
 }
 
 if(!$login) {
-    include 'pages\login.html';
+    include 'pages/login.html';
 } else {
     switch ($page){
         case 'dashboard':
-            include 'pages\nav_bar.php';
-            include 'pages\dashboard.php';
-            include 'pages\footer.php';
+            include 'pages/nav_bar.php';
+            include 'pages/dashboard.php';
+            include 'pages/footer.php';
             break;
         case 'history_day':
-            include 'pages\nav_bar.php';
-            include 'pages\history_day.php';
-            include 'pages\footer.php';
+            include 'pages/nav_bar.php';
+            include 'pages/history_day.php';
+            include 'pages/footer.php';
             break;
         case 'history_week':
-            include 'pages\nav_bar.php';
-            include 'pages\history_week.php';
-            include 'pages\footer.php';
+            include 'pages/nav_bar.php';
+            include 'pages/history_week.php';
+            include 'pages/footer.php';
             break;
         case 'history_month':
-            include 'pages\nav_bar.php';
-            include 'pages\history_month.php';
-            include 'pages\footer.php';
+            include 'pages/nav_bar.php';
+            include 'pages/history_month.php';
+            include 'pages/footer.php';
             break;
         case 'history_year':
-            include 'pages\nav_bar.php';
-            include 'pages\history_year.php';
-            include 'pages\footer.php';
+            include 'pages/nav_bar.php';
+            include 'pages/history_year.php';
+            include 'pages/footer.php';
             break;
         case 'settings':
-            include 'pages\nav_bar.php';
-            include 'pages\settings.php';
-            include 'pages\footer.php';
+            include 'pages/nav_bar.php';
+            include 'pages/settings.php';
+            include 'pages/footer.php';
             break;
         default:
-            include 'pages\nav_bar.php';
-            include 'pages\dashboard.php';
-            include 'pages\footer.php';
+            include 'pages/nav_bar.php';
+            include 'pages/dashboard.php';
+            include 'pages/footer.php';
             break;
     }
 }

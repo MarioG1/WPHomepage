@@ -91,6 +91,15 @@ class wpstats {
                                                 GROUP BY timestamp_inteval
                                                 ORDER BY timestamp_inteval ASC");
                 break;
+            case 'mo':
+                $duration = 30;
+                $stmt = $this->conn->prepare("SELECT CONCAT(YEAR(ph.time), '/', MONTH(ph.time)) AS timestamp_inteval, unix_timestamp(ph.time) AS time, SUM(ph.power/1000) as power, SUM((pc.cost/10)*(ph.power/1000)) as cost
+                                                FROM power_history ph
+                                                LEFT JOIN power_cost pc ON str_to_date(concat(year(ph.time),'.',month(ph.time),'.',dayofmonth(ph.time),' ',hour(ph.time),':00',':00'),'%Y.%m.%d %H:%i:%s') = pc.time
+                                                WHERE ph.time >= FROM_UNIXTIME(:start) AND ph.time <= FROM_UNIXTIME(:end)
+                                                GROUP BY timestamp_inteval
+                                                ORDER BY timestamp_inteval ASC");
+                break;
         }
      
         $stmt->bindValue(':start', $start, PDO::PARAM_INT);
@@ -129,11 +138,18 @@ class wpstats {
                                       ORDER BY timestamp_inteval ASC");
                 break;
             case 'w':
-                $stmt = $this->conn->prepare("SELECT CONCAT(YEAR(time), '/', WEEK(time)) AS timestamp_inteval, SUM(power/1000) AS power, unix_timestamp(time)
+                $stmt = $this->conn->prepare("SELECT CONCAT(YEAR(time), '/', WEEK(time)) AS timestamp_inteval, SUM(power/1000) AS power, unix_timestamp(time) AS time
                                         FROM power_history
                                         WHERE time >= FROM_UNIXTIME(:start) AND time <= FROM_UNIXTIME(:end)
                                         GROUP BY timestamp_inteval
                                         ORDER BY YEAR(time) ASC, WEEK(time) ASC");
+                break;
+            case 'mo':
+                $stmt = $this->conn->prepare("SELECT CONCAT(YEAR(time), '/', MONTH(time)) AS timestamp_inteval, SUM(power/1000) AS power, unix_timestamp(time) AS time
+                                        FROM power_history
+                                        WHERE time >= FROM_UNIXTIME(:start) AND time <= FROM_UNIXTIME(:end)
+                                        GROUP BY timestamp_inteval
+                                        ORDER BY YEAR(time) ASC, MONTH(time) ASC");
                 break;
         }
         

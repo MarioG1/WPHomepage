@@ -19,6 +19,9 @@ window.onload = function () {
         case 'history_month':
             render_charts_history_month();
             break;
+        case 'history_year':
+            render_charts_history_year();
+            break;
     }
 };
 
@@ -373,6 +376,111 @@ function render_charts_history_month() {
                 type: "column",
                 showInLegend: true,
                 legendText: "Letzer Monat",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_usage', "Stromverbrauch [kWh]", true);
+    });
+}
+
+function render_charts_history_year() {
+    var month = ['Jänner','Feber','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    var now = new Date();
+    
+    
+    var fist_ty = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
+    var last_ty = new Date(now.getFullYear(), 11, 31, 23, 59, 0, 0) ;
+    var fist_ly = new Date((now.getFullYear()-1), 0, 1, 0, 0, 0, 0);
+    var last_ly = new Date((now.getFullYear()-1), 11, 31, 23, 59, 0, 0);
+    
+    var req0 = $.getJSON('data.php', {action: "get_cost", start: Math.round(fist_ty / 1000), stop: Math.round(last_ty / 1000), interval: 'mo'}, function (data) {});
+    var req1 = $.getJSON('data.php', {action: "get_cost", start: Math.round(fist_ly / 1000), stop: Math.round(last_ly / 1000), interval: 'mo'}, function (data) {});
+    
+    $.when(req0, req1).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: (curr.cost+curr.fee)/100,
+                    label: month[time.getMonth()]
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: (curr.cost+curr.fee)/100,
+                    label: month[time.getMonth()]
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Dieses Jahr",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Letztes Jahr",
+                yValueFormatString:"0.####€",
+                dataPoints: data_points[1]
+            } 
+        ];
+        
+        render_column_chart(chart_data, 'chart_pow_cost', "Stromkosten [€]", true);
+    });
+    
+    var req2 = $.getJSON('data.php', {action: "get_power_usage", start: Math.round(fist_ty / 1000), stop: Math.round(last_ty / 1000), interval: 'mo'}, function (data) {});
+    var req3 = $.getJSON('data.php', {action: "get_power_usage", start: Math.round(fist_ly / 1000), stop: Math.round(last_ly / 1000), interval: 'mo'}, function (data) {});
+    
+    $.when(req2, req3).done(function(d0, d1){
+        var data_points = [[],[]];
+        for (var key in d0[0].data) {
+            var curr = d0[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow,
+                    label: month[time.getMonth()]
+            };
+            data_points[0].push(tmp);
+        }
+        
+        for (var key in d1[0].data) {
+            var curr = d1[0].data[key];
+            var time = new Date(curr.time*1000);
+            var tmp = {
+                    x: parseInt(key),
+                    y: curr.pow,
+                    label: month[time.getMonth()]
+            };
+            data_points[1].push(tmp);
+        }
+        
+        var chart_data = [
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Dieses Jahr",
+                yValueFormatString:"0.###kWh",
+                dataPoints: data_points[0]
+            },
+            {
+                type: "column",
+                showInLegend: true,
+                legendText: "Letzes Jahr",
                 yValueFormatString:"0.###kWh",
                 dataPoints: data_points[1]
             } 
