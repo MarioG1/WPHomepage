@@ -28,7 +28,29 @@
 
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <!-- JQuery Multiselect CSS -->
+    <link href="../bower_components/jquery-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css">
+    
+        <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    
+    <!-- Canvas.js -->
+    <script src="../js/jquery.canvasjs.min.js"></script>
+    <script src="../js/main.js"></script>
+    
+    <!-- JQuery Multiselect -->
+    <script src="../bower_components/jquery-multiselect/js/bootstrap-multiselect.js"></script>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -99,10 +121,19 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="index.php?page=control"><i class="fa fa-sitemap fa-fw"></i> Steuerung</a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Steuerung<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="index.php?page=contr_leg">Legionellenschutz</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=contr_psave">--- ---</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>    
                         <li>
-                            <a href="index.php?page=settings"><i class="fa fa-edit fa-fw"></i> Einstellungen</a>
+                            <a href="index.php?page=settings"><i class="fa fa-edit fa-fw"></i>Einstellungen</a>
                         </li>    
                     </ul>
                 </div>

@@ -13,11 +13,18 @@ span.multiselect-native-select select {
     left: 50%;
     top: 30px
 }
+span.multiselect-native-select>.btn-group {
+    width: 100%;    
+}
+.multiselect {
+    width: inherit;    
+}
 .multiselect-container {
     position: absolute;
     list-style-type: none;
     margin: 0;
-    padding: 0
+    padding: 0;
+    width: inherit;
 }
 .multiselect-container .input-group {
     margin: 5px
@@ -66,4 +73,7 @@ span.multiselect-native-select select {
 .form-inline .multiselect-container li a label.radio input[type=radio] {
     margin-left: -20px;
     margin-right: 0
+}
+.multiselect-selected-text {
+    text-align: right;
 }
