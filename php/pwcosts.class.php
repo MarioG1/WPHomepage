@@ -22,7 +22,7 @@ class pwcosts {
         $this->config = $config->v;
         
         try {
-            $this->conn = new PDO('mysql:host=localhost;dbname=waermepumpe', 'wp_user', 'Ikikulopi485');
+            $this->conn = new PDO('mysql:host='.dbconf::host.';dbname='.dbconf::db.'', dbconf::user, dbconf::password);
         } catch (PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
             die();

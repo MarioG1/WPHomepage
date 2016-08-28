@@ -1,5 +1,7 @@
 <?php
 
+include_once 'dbconf.class.php';
+
 /*
  * Copyright (C) 2016 Gallaun Mario mario.gallaun@gmx.at
  */
@@ -17,7 +19,7 @@ class config {
 
     function __construct() {
         try {
-            $this->conn = new PDO('mysql:host=localhost;dbname=waermepumpe', 'wp_user', 'Ikikulopi485');
+            $this->conn = new PDO('mysql:host='.dbconf::host.';dbname='.dbconf::db.'', dbconf::user, dbconf::password);
         } catch (PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
             die();
