@@ -33,7 +33,7 @@
                                 <select id="week" multiple="multiple" name="week[]" style="width: 100%">
                                     <?php
                                         $week = $legi->run_week_of_month;
-                                        for($i=1;$i<=4;$i++) {
+                                        for($i=1;$i<=5;$i++) {
                                             if(strpos($week, (string)$i) !== false) {
                                                 echo '<option value="'.$i.'" selected="selected">Woche '.$i.'</option>';
                                             } else {
@@ -49,13 +49,13 @@
                             <div class="col-sm-8">
                                 <select id="day" multiple="multiple" name="day[]" style="width: 100%">
                                     <?php
-                                        $days = ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
+                                        $days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
                                         $day = $legi->run_day_of_week;
-                                        for($i=1;$i<=7;$i++) {
+                                        for($i=0;$i<=6;$i++) {
                                             if(strpos($day, (string)$i) !== false) {
-                                                echo '<option value="'.$i.'" selected="selected">'.$days[$i-1].'</option>';
+                                                echo '<option value="'.$i.'" selected="selected">'.$days[$i].'</option>';
                                             } else {
-                                                echo '<option value="'.$i.'">'.$days[$i-1].'</option>';
+                                                echo '<option value="'.$i.'">'.$days[$i].'</option>';
                                             }
                                         }
                                     ?>
@@ -63,9 +63,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-4 control-label">Uhrzeit</label>
+                            <label class="col-sm-4 control-label">Startzeit</label>
                             <div class="col-sm-8">
-                                <select id="time" multiple="multiple"  name="hour[]"style="width: 100%">
+                                <select id="time" name="hour[]"style="width: 100%">
                                     <?php
                                         $hour = $legi->run_hour;
                                         for($i=-1;$i<=24;$i++) {
