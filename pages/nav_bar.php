@@ -121,17 +121,8 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Steuerung<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="index.php?page=contr_leg">Legionellenschutz</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=contr_psave">--- ---</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>    
+                            <a href="index.php?page=control"><i class="fa fa-gear fa-fw"></i>Steuerung</a>
+                        </li>      
                         <li>
                             <a href="index.php?page=settings"><i class="fa fa-edit fa-fw"></i>Einstellungen</a>
                         </li>    

@@ -137,9 +137,9 @@ if(!$login) {
             include 'pages/history_year.php';
             include 'pages/footer.php';
             break;
-        case 'contr_leg':
+        case 'control':
             include 'pages/nav_bar.php';
-            include 'pages/contr_leg.php';
+            include 'pages/control.php';
             include 'pages/footer.php';
             break;
         case 'settings':
