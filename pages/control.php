@@ -155,13 +155,13 @@
                             Wärmepumpe:
                         </div>
                         <div class="col-lg-2">
-                            <button class="btn btn-success <?=($status->get('wp') == 'EIN') ? 'btn-success' : 'btn-danger'?>" style="width: 80%" disabled="disabled"><?php echo $status->get('wp')?></button>
+                            <button class="btn btn-success <?=($status->get('wp') == 'ON') ? 'btn-success' : 'btn-danger'?>" style="width: 80%" disabled="disabled"><?php echo $status->get('wp')?></button>
                         </div>
                         <div class="col-lg-4" style="font-size: large; font-weight: bold; line-height: 35px">
                             Sollwerterhöhung:
                         </div>
                         <div class="col-lg-2">
-                            <button class="btn <?=($status->get('sollw') == 'EIN') ? 'btn-success' : 'btn-danger'?>" style="width: 80%" disabled="disabled"><?php echo $status->get('sollw')?></button>
+                            <button class="btn <?=($status->get('sollw') == 'ON') ? 'btn-success' : 'btn-danger'?>" style="width: 80%" disabled="disabled"><?php echo $status->get('sollw')?></button>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px;">
@@ -169,7 +169,7 @@
                             EVU Abschaltung:
                         </div>
                         <div class="col-lg-2">
-                            <button class="btn <?=($status->get('evu') == 'EIN') ? 'btn-success' : 'btn-danger'?>" style="width: 80%" disabled="disabled"><?php echo $status->get('evu')?></button>
+                            <button class="btn <?=($status->get('evu') == 'ON') ? 'btn-success' : 'btn-danger'?>" style="width: 80%" disabled="disabled"><?php echo $status->get('evu')?></button>
                         </div>
                     </div>
                 </div>
