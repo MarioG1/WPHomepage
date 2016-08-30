@@ -89,23 +89,29 @@ if(isset($_POST['save_3'])) {
     $config->save_config($c);
 }
 
-if(isset($_POST['save_3'])) {
-    $c[] = array (
-        'name' => 'add_pow_price',
-        'value' => $_POST['add_pow_price']
-    );
-    $c[] = array (
-        'name' => 'add_pow_price_d',
-        'value' => $_POST['add_pow_price_d']
-    );  
-    $config = new config();
-    $config->save_config($c);
-}
+//if(isset($_POST['save_3'])) {
+//    $c[] = array (
+//        'name' => 'add_pow_price',
+//        'value' => $_POST['add_pow_price']
+//    );
+//    $c[] = array (
+//        'name' => 'add_pow_price_d',
+//        'value' => $_POST['add_pow_price_d']
+//    );  
+//    $config = new config();
+//    $config->save_config($c);
+//}
 
 if(isset($_POST['save_leg'])) {
     include_once 'php/task.class.php';
     $task = new task();
     $task->save('legionellen', $_POST['week'], $_POST['day'], $_POST['hour'], 14400);
+}
+
+if(isset($_POST['save_runt'])) {
+    include_once 'php/task.class.php';
+    $task = new task();
+    $task->save('cost_contr', ['0'], $_POST['day_run'], ['0'], $_POST['runtime']*60*60);
 }
 
 if(!$login) {

@@ -46,6 +46,8 @@ class task {
             return false;
         }
         
+        echo $name;
+        
         $s_week = implode(',', $week);
         $s_day = implode(',', $day);
         $s_hour = implode(',', $hour);
